@@ -2,7 +2,9 @@
 using DataAccess.Concrete;
 using DataAccess.Concrete.Entity.Framework;
 using Entities.Concrete;
+using Core.Utilities.Results;
 using System;
+using Business.Constants;
 
 namespace ConsoleUI
 {
@@ -13,28 +15,28 @@ namespace ConsoleUI
         {
             //ColorTest();
             //BrandTest();
-            CarTest();
+            //CarTest();
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.CompanyName + customer.CustomerId);
+
+            }
+
+
 
         }
 
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-
-            carManager.Add(new Car { BrandId = 1, ColorId = 1, ModelYear = 2020, DailyPrice = 100, CarName = "A6 Diesel" });
-
-            foreach (var car in carManager.GetCarsByBrandId(1))
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car.CarName);
+
             }
-            foreach (var car in carManager.GetCarsByColorId(3))
-            {
-                Console.WriteLine(car.CarName);
-            }
-            foreach (var car in carManager.GetCarDetails())
-            {
-                Console.WriteLine(car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
-            }
+
         }
 
         private static void BrandTest()
@@ -46,20 +48,15 @@ namespace ConsoleUI
             };
 
             brandManager.Add(brand1);
-            Console.WriteLine("Brand data added");
-
-            foreach (Brand brandd in brandManager.GetAll())
+            foreach(var brand in brandManager.GetAll().Data)
             {
-                Console.WriteLine("--------------------");
-                Console.WriteLine("Brand Name:" + brandd.BrandName);
-                Console.WriteLine("--------------------");
+                Console.WriteLine(brand.BrandName);
             }
-            var brand = brandManager.GetById(1);
-            Console.WriteLine(brand.BrandName + " GetById method worked");
 
-            brandManager.Delete(brand1);
-            Console.WriteLine("Brand data has been deleted");
+
         }
+  
+
 
         private static void ColorTest()
         {
@@ -69,15 +66,14 @@ namespace ConsoleUI
                 ColorName = "Red"
             };
             colorManager.Add(color1);
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName + "/" + color.ColorId);
 
             }
-            var renk = colorManager.GetById(1);
-            Console.WriteLine(renk.ColorName + " GetById method worked.");
-            colorManager.Delete(color1);
-            Console.WriteLine("Color data has been deleted");
+            
+           
         }
     }
 }
+

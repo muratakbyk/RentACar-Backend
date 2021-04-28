@@ -19,4 +19,11 @@ Create Table Colors
 	Id int Primary Key Identity (1,1),
 	ColorName nvarchar,
 )
+Create Table Customers
+(
+	CustomerId int Primary Key Identity (1,1),
+	UserId int,
+	CompanyName nvarchar,
+	
+)
 
