@@ -18,7 +18,7 @@ namespace Core.Utilities.Results
         {
 
         }
-        public ErrorDataResult() : base(default, false)
+        public ErrorDataResult(object carImagesLimitExceded) : base(default, false)
         {
 
         }

@@ -26,4 +26,11 @@ Create Table Customers
 	CompanyName nvarchar,
 	
 )
+CREATE TABLE CarImages
+(
+	ImageId int Primary Key identity (1,1),
+    CarId int,
+    ImagePath nvarchar,
+    Datee datetime
+)
 
