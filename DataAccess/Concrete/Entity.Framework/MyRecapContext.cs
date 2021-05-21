@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.Entities;
+using Core.Entities.Concrete;
+
 namespace DataAccess.Concrete.Entity.Framework
 {
     public class MyRecapContext:DbContext
@@ -20,6 +22,7 @@ namespace DataAccess.Concrete.Entity.Framework
         public DbSet<User> Users { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<CarImage> CarImages { get; set; }
-
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
     }
 }
