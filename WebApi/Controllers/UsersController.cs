@@ -14,7 +14,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-      /*  IUserService _userService;
+        IUserService _userService;
         public UsersController(IUserService userService)
         {
             _userService = userService;
@@ -70,6 +70,18 @@ namespace WebApi.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }*/
+        }
+
+        [HttpGet("getbymail")]
+        public IActionResult GetByMail(string email)
+        {
+            var result = _userService.GetByMail(email);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

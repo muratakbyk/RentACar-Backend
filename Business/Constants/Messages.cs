@@ -30,7 +30,7 @@ namespace Business.Constants
         public static string CustomerAdded = "Customer Added.";
         public static string CustomerDeleted = "Customer deleted.";
         public static string CustomerUpdated = "Customer Updated.";
-        public static string RentalAdded = "Rental Added.";
+        public static string RentalAdded = "Rental successful .";
         public static string RentalDeleted = "Rental Deleted.";
         public static string RentalUpdated = "Rental Updated.";
         public static string RentalInvalid = "Rental Invalid.";
@@ -58,5 +58,11 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Access Token Created.";
 
         public static string AuthorizationDenied = "No Authority.";
+
+        public static string CreditCardAdded = "Credit Card Added.";
+
+        public static string CreditCardDeleted = "Credit Card Deleted.";
+
+        public static string CreditCardsListed = "Credit Cards Listed.";
     }
 }

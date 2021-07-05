@@ -3,9 +3,12 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq.Expressions;
+
 
 namespace Business.Concrete
 {
@@ -19,9 +22,16 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
-            if (rental.ReturnDate == null)
+            var results = _rentalDal.GetAll(re => re.CarId == rental.CarId);
+
+            foreach (var result in results)
             {
-                return new ErrorResult(Messages.RentalInvalid);
+                if (result.ReturnDate == null ||
+                    (rental.RentDate >= result.RentDate && rental.RentDate <= result.ReturnDate) ||
+                    (rental.ReturnDate >= result.RentDate && rental.RentDate <= result.ReturnDate))
+                {
+                    return new ErrorResult(Messages.RentalInvalid);
+                }
             }
             _rentalDal.Add(rental);
             return new Result(true, Messages.RentalAdded);
@@ -42,6 +52,16 @@ namespace Business.Concrete
         public IDataResult<Rental> GetById(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(b => b.RentalId == rentalId));
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailsByCarId(int id)
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(p=>p.Id==id));
         }
 
         public IResult Update(Rental rental)
